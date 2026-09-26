@@ -70,14 +70,55 @@ pages['contact'] = ('Contact', 'Get in touch about research and academic collabo
 pages['cv'] = ('Curriculum vitae', 'Academic background, research, publications, and experience.', '<div class="cv-panel"><p class="meta">SEPTEMBER 2026</p><h2>Ashish Kumar</h2><p>Publishing as Ashish S. Kumar<br>Ph.D. Scholar · Thesis Submitted<br>IIT Gandhinagar</p><a class="button" href="assets/ashish-kumar-cv.pdf" download>Download CV (PDF) ↓</a><a class="text-link" href="assets/ashish-kumar-cv.pdf">View PDF ↗</a></div>')
 
 nav = [('index','About'),('research','Research'),('publications','Publications'),('education','Education'),('patents','Patents'),('presentations','Presentations'),('fieldwork','Fieldwork'),('teaching','Teaching'),('mentoring','Mentoring'),('skills','Skills'),('awards','Awards'),('service','Service & interests'),('cv','CV'),('contact','Contact')]
-home = '''<div class="home-intro"><p class="eyebrow">CIVIL ENGINEERING · IIT GANDHINAGAR</p><h1>Ashish<br><span>Kumar.</span></h1><p class="publishing">Publishing as Ashish S. Kumar</p><p class="lead">Understanding flood risk.<br>Working toward equitable adaptation.</p><p>I am a Ph.D. scholar in Civil Engineering at the Indian Institute of Technology Gandhinagar. My research examines how flood adaptation redistributes risk, and how we can move toward connected and equitable resilience.</p><div class="actions"><a class="button" href="research.html">Explore my research ↗</a><a class="text-link" href="cv.html">Curriculum vitae →</a></div></div><aside class="home-note"><span class="note-number">01 / RESEARCH FOCUS</span><h2>Protection in one place.<br>Consequences<br>across a city.</h2><p>I study flood risk across spatial scales, linking hydrodynamic modelling with questions of adaptation and equity.</p><div class="note-foot">Flood modelling<br>Climate adaptation<br>Equitable urban resilience</div></aside><section class="home-bottom"><div><p class="meta">ACADEMIC STATUS</p><h2>Ph.D. thesis submitted</h2><p>14 August 2026 · Supervised by Dr. Udit Bhatia</p><a href="education.html">Education →</a></div><div><p class="meta">SELECTED PUBLICATION · 2025</p><h2>Partial flood defenses shift risks and amplify inequality in a core–periphery city.</h2><p>Nature Cities · 2, 835–846</p><a href="publications.html">View publications →</a></div></section>'''
+
+collaborators = [
+    ('UB', 'Udit Bhatia', 50, 8),
+    ('AD', 'Adrija Datta', 68, 12),
+    ('RD', 'R. Dave', 82.5, 21),
+    ('AB', 'A. Borah', 91, 36.5),
+    ('RM', 'R. Majumder', 92, 56),
+    ('VK', 'V. P. Kapadia', 85, 73.5),
+    ('AP', 'A. K. Pandey', 71, 87),
+    ('PM', 'P. K. Mohapatra', 50, 92),
+    ('HP', 'H. Poonia', 29, 87),
+    ('DU', 'D. Upadhyay', 15, 73.5),
+    ('AN', 'A. C. Nikumbh', 8, 56),
+    ('RMu', 'R. Murtugudde', 9, 36.5),
+    ('SD', 'S. Dubey', 17.5, 21),
+    ('MS', 'M. Sutrave', 32, 12),
+]
+
+def scholar_search(name):
+    return 'https://scholar.google.com/scholar?q=author:%22' + name.replace(' ', '+') + '%22'
+
+collaboration_nodes = ''.join(
+    f'<button class="network-node" type="button" style="--x:{x}%;--y:{y}%;--delay:{i * .16:.2f}s" data-initials="{initials}" data-name="{name}" data-role="Research collaborator" data-scholar="{scholar_search(name)}" aria-label="View {name} profile"><span class="node-avatar">{initials}</span><span class="node-name">{name}</span></button>'
+    for i, (initials, name, x, y) in enumerate(collaborators, 1)
+)
+network_lines = ''.join(
+    f'<line x1="200" y1="170" x2="{x * 4:g}" y2="{y * 3.4:g}"/>'
+    for _, _, x, y in collaborators
+)
+collaboration_panel = f'''<aside class="collaboration-panel" aria-labelledby="collaboration-title"><div class="network-heading"><p id="collaboration-title">COLLABORATION NETWORK</p><span>14 collaborators · select a node</span></div><div class="network-canvas"><svg class="network-lines" viewBox="0 0 400 340" aria-hidden="true"><g>{network_lines}</g></svg><button class="network-node node-center" type="button" style="--x:50%;--y:50%;--delay:0s" data-initials="AK" data-name="Ashish Kumar" data-role="Flood risk & climate adaptation" data-scholar="https://scholar.google.com/citations?user=hPkHV7cAAAAJ" aria-label="View Ashish Kumar profile"><span class="node-avatar">AK</span><span class="node-name">Ashish Kumar</span></button>{collaboration_nodes}</div></aside>'''
+
+home = f"""<section class="hero"><div class="wrap hero-layout"><div class="hero-copy"><p class="eyebrow">FLOOD RISK · CLIMATE ADAPTATION · EQUITY</p><h1>Understanding flood risk.<br>Rethinking adaptation.</h1><p class="hero-intro">I am Ashish Kumar. My research explores how flood protection reshapes risk across cities, and how that knowledge can guide more connected and equitable adaptation.</p><div class="actions"><a class="button" href="research.html">Explore my research</a><a class="hero-link" href="publications.html">View publications →</a></div></div>{collaboration_panel}</div><dialog class="network-profile" aria-labelledby="network-profile-name"><button class="network-close" type="button" aria-label="Close profile">×</button><div class="profile-avatar" aria-hidden="true">AK</div><p class="profile-label">COLLABORATION NETWORK</p><h2 id="network-profile-name">Ashish Kumar</h2><p class="profile-role">Flood risk & climate adaptation</p><a class="profile-scholar" href="https://scholar.google.com/citations?user=hPkHV7cAAAAJ" target="_blank" rel="noopener">Open Google Scholar ↗</a></dialog></section>
+<section class="section"><div class="wrap about-grid"><div><p class="kicker">ABOUT ME</p><h2>Connecting flood science<br>with equitable resilience.</h2><p class="intro">I am a Ph.D. scholar in the Department of Civil Engineering at the Indian Institute of Technology Gandhinagar, supervised by Dr. Udit Bhatia.</p><p>My work brings together hydrologic and hydrodynamic modelling, flood–structure interactions, and geospatial analysis to understand the wider consequences of flood adaptation. I am interested in how protection in one place can change risk elsewhere, and how adaptation planning can account for those connections.</p><p>I publish as <strong>Ashish S. Kumar</strong>.</p><div class="identity-links"><a href="mailto:ashishkumar@iitgn.ac.in">Email ↗</a><a href="https://scholar.google.com/citations?user=hPkHV7cAAAAJ">Google Scholar ↗</a><a href="https://orcid.org/0000-0002-8632-0915">ORCID ↗</a><a href="cv.html">Curriculum vitae ↓</a></div></div><aside class="academic-note"><p class="kicker">IIT GANDHINAGAR</p><h3>Ph.D. in<br>Civil Engineering</h3><p>Thesis submitted<br><strong>14 August 2026</strong></p><p>Moving Flood Adaptation beyond Isolated Protection towards Connected and Equitable Risk Management across Spatial Scales.</p><a href="education.html">My academic journey →</a></aside></div></section>
+<section class="section research-preview"><div class="wrap"><p class="kicker">RESEARCH</p><h2>Floods, adaptation,<br>and the risks we share.</h2><div class="research-grid"><article><p class="meta">01 / FLOOD RISK</p><h3>Connected protection</h3><p>Understanding how flood defenses redistribute risk across people, places, and time.</p><a href="research.html">Research interests →</a></article><article><p class="meta">02 / MODELLING</p><h3>From flow to impact</h3><p>Hydrodynamic and three-dimensional numerical modelling of flood–building interactions.</p><a href="publications.html">Related publications →</a></article><article><p class="meta">03 / ADAPTATION</p><h3>Equitable resilience</h3><p>Exploring nature-based and hybrid adaptation, urban climate risk, and decision support.</p><a href="fieldwork.html">Field experience →</a></article></div></div></section>
+<section class="section"><div class="wrap"><p class="kicker">SELECTED PUBLICATION · 2025</p><h2 class="selected-title">Partial flood defenses shift risks and amplify inequality in a core–periphery city.</h2><p class="muted">Ashish S. Kumar, R. Majumder, V. P. Kapadia, and U. Bhatia<br><em>Nature Cities</em>, 2, 835–846.</p><a class="text-link" href="publications.html">Browse publications →</a></div></section>
+<section class="contact-band"><div class="wrap"><p class="eyebrow">GET IN TOUCH</p><h2>Let’s connect.</h2><p>For research discussions and academic collaboration.</p><a href="mailto:ashishkumar@iitgn.ac.in">ashishkumar@iitgn.ac.in ↗</a></div></section>"""
 
 def render(slug, title, subtitle, body):
-    links = ''.join(f'<a href="{s}.html"'+ (' aria-current="page"' if s==slug else '')+f'>{t}</a>' for s,t in nav)
-    content = home if slug=='index' else f'<header class="page-heading"><p class="eyebrow">ASHISH KUMAR / {escape(title.upper())}</p><h1>{title}</h1><p class="lead">{subtitle}</p></header><div class="entries">{body}</div>'
+    def nav_link(s, t):
+        return f'<a href="{s}.html"'+ (' aria-current="page"' if s==slug else '')+f'>{t}</a>'
+    primary = [('index','About'),('research','Research'),('publications','Publications'),('education','Education'),('teaching','Teaching'),('fieldwork','Fieldwork')]
+    more = [(s,t) for s,t in nav if s not in {n[0] for n in primary} | {'cv','contact'}]
+    links = ''.join(nav_link(s,t) for s,t in primary)
+    links += '<details class="more-nav"><summary'+ (' class="active"' if slug in dict(more) else '')+'>More <span aria-hidden="true">⌄</span></summary><div class="dropdown">'+''.join(nav_link(s,t) for s,t in more)+'</div></details>'
+    links += nav_link('cv','CV') + nav_link('contact','Contact')
+    content = home if slug=='index' else f'<section class="page-banner"><div class="wrap"><p class="eyebrow">ASHISH KUMAR</p><h1>{title}</h1><p class="lead">{subtitle}</p></div></section><section class="section"><div class="wrap entries">{body}</div></section>'
     return f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Ashish Kumar</title><meta name="description" content="{escape(subtitle, quote=True)}"><meta name="theme-color" content="#102c40"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/style.css"></head>
-<body><a class="skip" href="#main">Skip to content</a><div class="layout"><aside class="sidebar"><a class="identity" href="index.html"><span class="monogram">AK<span>.</span></span><strong>Ashish Kumar</strong><small>Flood risk & climate adaptation</small></a><nav aria-label="Main navigation">{links}</nav><div class="sidebar-bottom"><span>IIT Gandhinagar</span><a href="mailto:ashishkumar@iitgn.ac.in">Get in touch ↗</a></div></aside><div class="page"><div class="topline"><span>PERSONAL ACADEMIC WEBSITE</span><a href="https://scholar.google.com/citations?user=hPkHV7cAAAAJ">Google Scholar ↗</a></div><main id="main" class="{'home' if slug=='index' else ''}">{content}</main><footer><span>© Ashish Kumar</span><span>Content updated September 2026</span><a href="https://orcid.org/0000-0002-8632-0915">ORCID ↗</a></footer></div></div></body></html>'''
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{'Ashish Kumar | Flood Risk & Climate Adaptation' if slug=='index' else title+' | Ashish Kumar'}</title><meta name="description" content="{escape(subtitle, quote=True)}"><meta name="theme-color" content="#012169"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/style.css"></head>
+<body id="top"><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a class="brand" href="index.html">Ashish Kumar<span>Flood risk & climate adaptation</span></a><nav aria-label="Main navigation">{links}</nav></div></header><main id="main">{content}</main><footer><div class="wrap footer-inner"><span>© Ashish Kumar</span><span>Content updated September 2026</span><a href="#top">Back to top ↑</a></div></footer><script src="assets/navigation.js"></script></body></html>'''
 
 (OUT/'index.html').write_text(render('index','About','Ashish Kumar — flood risk, climate adaptation, and equitable urban resilience at IIT Gandhinagar.',''),encoding='utf-8')
 for slug,(title,subtitle,body) in pages.items():

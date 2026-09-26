@@ -12,6 +12,6 @@ Shared colours, fonts, and layouts are in `dist/assets/style.css`. Replace `dist
 
 `build_site.py` contains the original page content and shared layout. Edit it and run Python to regenerate all HTML pages. This overwrites direct edits to the HTML files. The final command in the script copies the source CV from its original location; update that path if the CV moves.
 
-Choose either direct HTML editing or the generator as your usual workflow. The website itself does not require Python or JavaScript.
+Choose either direct HTML editing or the generator as your usual workflow. The website itself does not require Python. A small optional JavaScript file closes the More menu when clicking outside it or pressing Escape; the navigation also works without JavaScript.
 
 All academic details were transcribed or summarized from the September 2026 supplied CV. Publication status and degree status reflect that document. Telephone number and nationality are omitted from the website biography; the original downloadable CV retains its content.
