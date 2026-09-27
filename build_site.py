@@ -10,6 +10,21 @@ def item(title, text='', meta='', link=''):
     heading = f'<a href="{escape(link)}">{title} <span aria-hidden="true">↗</span></a>' if link else title
     return f'<article class="entry"><p class="meta">{meta}</p><h2>{heading}</h2><p>{text}</p></article>'
 
+def publication_item(title, citation, meta, doi, logo, logo_alt, preview, preview_alt):
+    return f'''<article class="publication-entry">
+    <a class="paper-preview" href="{escape(doi)}" target="_blank" rel="noopener">
+      <img src="assets/publications/{escape(preview)}" alt="{escape(preview_alt)}" loading="lazy">
+      <span>First page <b aria-hidden="true">&nearr;</b></span>
+    </a>
+    <div class="publication-copy">
+      <img class="journal-logo" src="assets/publications/{escape(logo)}" alt="{escape(logo_alt)}" loading="lazy">
+      <p class="meta">{meta}</p>
+      <h2><a href="{escape(doi)}" target="_blank" rel="noopener">{title} <span aria-hidden="true">&nearr;</span></a></h2>
+      <p>{citation}</p>
+      <a class="publication-doi" href="{escape(doi)}" target="_blank" rel="noopener">View paper <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </article>'''
+
 pages = {}
 pages['research'] = ('Research', 'Understanding how flood adaptation changes risk across people, places, and time.',
     item('Connected and equitable flood adaptation', 'My doctoral research examines how flood adaptation redistributes risk across spatial scales, moving beyond isolated protection toward connected and equitable risk management.', '01 / FLOOD RISK & EQUITY') +
@@ -19,11 +34,29 @@ pages['research'] = ('Research', 'Understanding how flood adaptation changes ris
 pages['education'] = ('Education', 'Civil engineering, hydrology, and climate-risk research.',
     item('Ph.D. in Civil Engineering', '<strong>Indian Institute of Technology Gandhinagar, India</strong><br>CPI: 9.50/10<br>Thesis: <em>Moving Flood Adaptation beyond Isolated Protection towards Connected and Equitable Risk Management across Spatial Scales.</em><br>Supervisor: Dr. Udit Bhatia.<br>Thesis submitted on 14 August 2026; defence expected in October 2026.', 'JULY 2021–PRESENT · THESIS SUBMITTED') +
     item('B.Tech. in Civil Engineering', 'National Institute of Technology Jamshedpur, India<br>CGPA: 7.97/10.', '2016–2020'))
-pages['publications'] = ('Publications', 'Publishing as Ashish S. Kumar.',
-    item('Dense canopies reverse the cooling effect of urban greening in humid cities.', 'Borah, A., Datta, A., <strong>Kumar, A. S.</strong>, Dave, R., and Bhatia, U.<br><em>Nature Communications</em>, 17, 5997.', '2026 · JOURNAL ARTICLE', 'https://doi.org/10.1038/s41467-026-72636-w') +
-    item('Partial flood defenses shift risks and amplify inequality in a core–periphery city.', '<strong>Kumar, A. S.</strong>, Majumder, R., Kapadia, V. P., and Bhatia, U.<br><em>Nature Cities</em>, 2, 835–846.', '2025 · JOURNAL ARTICLE', 'https://doi.org/10.1038/s44284-025-00299-7') +
-    item('Three-dimensional numerical study of flood–building interactions to assess the efficiency of flood adaptation strategies.', '<strong>Kumar, A. S.</strong>, Pandey, A. K., Mohapatra, P. K., and Bhatia, U.<br><em>Journal of Hydraulic Engineering</em>, 151(5), 04025028.', '2025 · JOURNAL ARTICLE', 'https://doi.org/10.1061/JHEND8.HYENG-14299') +
-    item('Internal climate variability reshapes global extreme-rainfall synchronization networks.', 'Poonia, H., Upadhyay, D., Nikumbh, A. C., <strong>Kumar, A. S.</strong>, Murtugudde, R., and Bhatia, U.<br><em>npj Climate and Atmospheric Science</em>.', 'MANUSCRIPT · UNDER REVIEW'))
+pages['publications'] = ('Publications', 'Peer-reviewed research on flood adaptation, urban climate, and equitable resilience.',
+    publication_item(
+        'Dense canopies reverse the cooling effect of urban greening in humid cities.',
+        'Borah, A., Datta, A., <strong>Kumar, A. S.</strong>, Dave, R., and Bhatia, U.<br><em>Nature Communications</em>, 17, 5997.',
+        '2026 &middot; JOURNAL ARTICLE',
+        'https://doi.org/10.1038/s41467-026-72636-w',
+        'nature-communications-logo.png', 'Nature Communications',
+        'dense-canopies-first-page.png', 'First page of the Nature Communications article') +
+    publication_item(
+        'Partial flood defenses shift risks and amplify inequality in a core&ndash;periphery city.',
+        '<strong>Kumar, A. S.</strong>, Majumder, R., Kapadia, V. P., and Bhatia, U.<br><em>Nature Cities</em>, 2, 835&ndash;846.',
+        '2025 &middot; JOURNAL ARTICLE',
+        'https://doi.org/10.1038/s44284-025-00299-7',
+        'nature-cities-logo.png', 'Nature Cities',
+        'partial-flood-defenses-first-page.png', 'First page of the Nature Cities article') +
+    publication_item(
+        'Three-dimensional numerical study of flood&ndash;building interactions to assess the efficiency of flood adaptation strategies.',
+        '<strong>Kumar, A. S.</strong>, Pandey, A. K., Mohapatra, P. K., and Bhatia, U.<br><em>Journal of Hydraulic Engineering</em>, 151(5), 04025028.',
+        '2025 &middot; JOURNAL ARTICLE',
+        'https://doi.org/10.1061/JHEND8.HYENG-14299',
+        'journal-hydraulic-engineering-logo.png', 'ASCE Journal of Hydraulic Engineering',
+        'flood-building-interactions-first-page.png', 'First page of the Journal of Hydraulic Engineering article'))
+
 pages['patents'] = ('Patent applications', 'Methods for understanding spatial and temporal redistribution of flood risk.',
     item('Dual Barcode Method for Quantifying Spatial Redistribution of Dry Land under Flood Protection.', 'Kumar, A. and Bhatia, U.<br>Indian Patent Application No. 202621008727. Filed on 28 January 2026.', '2026 · APPLICATION') +
     item('Protection-Induced Time-Shift Method for Quantifying Temporal Redistribution of Urban Flood Risk.', 'Kumar, A. and Bhatia, U.<br>Indian Patent Application No. 202521103502. Filed on 27 October 2025.', '2025 · APPLICATION'))
