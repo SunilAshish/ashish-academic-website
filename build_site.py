@@ -12,16 +12,18 @@ def item(title, text='', meta='', link=''):
 
 def publication_item(title, citation, meta, doi, logo, logo_alt, preview, preview_alt):
     return f'''<article class="publication-entry">
-    <a class="paper-preview" href="{escape(doi)}" target="_blank" rel="noopener">
-      <img src="assets/publications/{escape(preview)}" alt="{escape(preview_alt)}" loading="lazy">
-      <span>First page <b aria-hidden="true">&nearr;</b></span>
-    </a>
     <div class="publication-copy">
-      <img class="journal-logo" src="assets/publications/{escape(logo)}" alt="{escape(logo_alt)}" loading="lazy">
       <p class="meta">{meta}</p>
       <h2><a href="{escape(doi)}" target="_blank" rel="noopener">{title} <span aria-hidden="true">&nearr;</span></a></h2>
       <p>{citation}</p>
-      <a class="publication-doi" href="{escape(doi)}" target="_blank" rel="noopener">View paper <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="publication-visuals">
+      <a class="journal-logo-link" href="{escape(doi)}" target="_blank" rel="noopener" aria-label="Open paper in {escape(logo_alt)}">
+        <img class="journal-logo" src="assets/publications/{escape(logo)}" alt="{escape(logo_alt)}" loading="lazy">
+      </a>
+      <a class="paper-preview" href="{escape(doi)}" target="_blank" rel="noopener" aria-label="Open paper from its first-page preview">
+        <img src="assets/publications/{escape(preview)}" alt="{escape(preview_alt)}" loading="lazy">
+      </a>
     </div>
   </article>'''
 
